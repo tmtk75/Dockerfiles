@@ -53,3 +53,12 @@ If you use vagrant, launch it up with `--provision` option.
     $ cd /vagrant
 
 And go back to the top :-)
+
+
+If you don't have vagrant using MacOSX, you can install it with puppet.
+
+    $ bundle install --binstubs --path vendor
+    $ sudo ./bin/puppet apply manifests/init.pp
+    $ VBoxManage -v; vagrant -v
+    4.3.2r90405
+    Vagrant 1.3.5

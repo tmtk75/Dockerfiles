@@ -2,3 +2,7 @@
 *.zip
 serf
 .vagrant
+.bundle/
+Gemfile.lock
+bin/
+vendor/

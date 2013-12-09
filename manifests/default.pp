@@ -8,3 +8,7 @@ package {
   ensure => present,
 }
 
+service { docker:
+  ensure => running,
+  require => Package["docker-io"],
+}

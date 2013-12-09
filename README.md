@@ -38,3 +38,18 @@ Run serf agent to bind on docker containers
     $ sudo docker run -t -d centos/serf serf agent -join 10.5.224.32:7946
     8a7d032eb5bf9f42b93d914ff0a8aa930f4799e4b9a90a22d9d5807896e91fba
 
+
+If you use vagrant, launch it up with `--provision` option.
+
+    $ vagrant up --provision
+    $ vagrant ssh
+    Welcome to your Vagrant-built virtual machine.
+    [vagrant@localhost ~]$ ifconfig
+    eth0      Link encap:Ethernet  HWaddr 08:00:27:C9:39:9E  
+              inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
+              inet6 addr: fe80::a00:27ff:fec9:399e/64 Scope:Link
+              ...
+
+    $ cd /vagrant
+
+And go back to the top :-)

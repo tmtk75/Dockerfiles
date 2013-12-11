@@ -1,7 +1,24 @@
 README
 
-Let's say I work on CentOS-6.4.
+Set up 
+======
+If you don't have vagrant using MacOSX, you can install it with puppet.
 
+    $ bundle install --binstubs --path vendor
+    $ sudo ./bin/puppet apply manifests/init.pp
+    $ VBoxManage -v; vagrant -v
+    4.3.2r90405
+    Vagrant 1.3.5
+
+After the installation, launch a VM and log in.
+
+    $ vagrant up --provision
+    $ vagrant ssh
+
+
+Serf cluster
+============
+Let's say I work on CentOS-6.4.
 
 serf on host OS
 
@@ -51,14 +68,3 @@ If you use vagrant, launch it up with `--provision` option.
               ...
 
     $ cd /vagrant
-
-And go back to the top :-)
-
-
-If you don't have vagrant using MacOSX, you can install it with puppet.
-
-    $ bundle install --binstubs --path vendor
-    $ sudo ./bin/puppet apply manifests/init.pp
-    $ VBoxManage -v; vagrant -v
-    4.3.2r90405
-    Vagrant 1.3.5

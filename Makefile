@@ -9,5 +9,5 @@ install: ./modules/docker
 	./bin/librarian-puppet install
 
 clean:
-	rm -rf .bundle bin modules *.lock
+	rm -rf .librarian .tmp .bundle bin modules *.lock
 

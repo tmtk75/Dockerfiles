@@ -3,6 +3,9 @@
 serf
 .vagrant
 .bundle/
-Gemfile.lock
+*.lock
 bin/
-vendor/
+.librarian/
+modules
+.tmp
+

@@ -8,5 +8,5 @@ package {
   ensure => present,
 }
 
-import "docker"
 include docker
+

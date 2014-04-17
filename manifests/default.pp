@@ -9,4 +9,5 @@ package {
 }
 
 include docker
+include serf
 

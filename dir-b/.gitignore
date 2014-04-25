@@ -1,0 +1,11 @@
+.*.swp
+*.zip
+serf
+.vagrant
+.bundle/
+*.lock
+bin/
+.librarian/
+modules
+.tmp
+

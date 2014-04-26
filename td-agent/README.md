@@ -35,11 +35,13 @@ Launch two containers for receiver and sender. Run each command via different te
 In td_recv, please run tail.
 ```
 $ make td_recv
-[root@d_recv /]# /etc/init.d/td-agent start
-[root@d_recv /]# tail -f /var/log/td-agent/td-agent.log
+[root@d_recv /]# ./td-agent  # will tail -f
+...
+2014-04-26 12:46:01 +0000 [info]: listening fluent socket on 0.0.0.0:24224
+2014-04-26 12:46:01 +0000 [info]: listening dRuby uri="druby://127.0.0.1:24230" object="Engine"
 
 $ make td_send
-[root@d_send /]# /etc/init.d/td-agent start
+[root@d_send /]# ./td-agent
 ```
 
 NOTE: Please confirm that ipaddr of td_recv is 172.17.0.2 with ifconfig.
@@ -53,3 +55,4 @@ You can see the log soon in the tailed log.
 ```
 2014-04-26 12:27:04 +0000 debug.test: {"a":1}
 ```
+

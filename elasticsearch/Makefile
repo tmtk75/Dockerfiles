@@ -7,3 +7,9 @@ run:
 build:
 	docker build -t elasticsearch:1.1.1 .
 
+natpf:
+	VBoxManage controlvm "boot2docker-vm" natpf1 ",tcp,127.0.0.1,9200,,9200"
+
+natpf_clean:
+	VBoxManage controlvm "boot2docker-vm" natpf1 delete tcp_9200_9200
+

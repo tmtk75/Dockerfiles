@@ -1,11 +1,11 @@
 curl:
-	curl -v localhost:9200
+	curl localhost:9200/library/book/_search?q=name:game | jq .
 
 run:
 	docker run -d -p 9200:9200 -p 9300:9300 elasticsearch:1.1.1
 
 stop:
-	if docker ps | egrep elasticsearch > /dev/null; then docker stop `docker ps | egrep elasticsearch | awk '{print \$1}'`; fi
+	if docker ps | egrep elasticsearch > /dev/null; then docker stop `docker ps | egrep elasticsearch | awk '{print $$1}'`; fi
 
 build:
 	docker build -t elasticsearch:1.1.1 .

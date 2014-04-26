@@ -56,3 +56,71 @@ You can see the log soon in the tailed log.
 2014-04-26 12:27:04 +0000 debug.test: {"a":1}
 ```
 
+## Elasticsearch
+```
+$ make clean build
+```
+
+Open three terminals and run each ones.
+```
+$ make td_es
+[root@td_recv /]# ./td-agent
+[root@td_recv /]# 
+
+$ make td_send
+[root@td_send /]# ./td-agent
+[root@td_send /]# 
+
+$ cd ../elasticsearch
+docker run -d -p 9200:9200 -p 9300:9300 elasticsearch:1.1.1
+196f3e6a6a3d1d622151cb11246870592c5d0ec3c5d77ad46d871a2862ee132d
+```
+
+NOTE: This expects td_recv is 172.17.0.2, td_send is 172.17.0.3 and elasticsearch is 172.17.0.4. Please ensure the order to run.
+
+In the terminal where elasticsearch is running, execute next.
+```
+$ make curl
+{
+  "status": 404,
+  "error": "IndexMissingException[[library] missing]"
+}
+```
+
+You see 404 because missing data.
+
+In the td_send, run next.
+```
+$ echo '{"name":"game"}' | fluend-cat es.test
+$ echo '{"name":"animal"}' | fluend-cat es.test
+```
+
+Retry `make curl`.
+```
+{
+  "hits": {
+    "hits": [
+      {
+        "_source": {
+          "name": "game"
+        },
+        "_score": 0.30685282,
+        "_id": "nb4dOWwQRV6t4US7MozDIw",
+        "_type": "book",
+        "_index": "library"
+      }
+    ],
+    "max_score": 0.30685282,
+    "total": 1
+  },
+  "_shards": {
+    "failed": 0,
+    "successful": 5,
+    "total": 5
+  },
+  "timed_out": false,
+  "took": 24
+}
+```
+
+You got this :)

@@ -11,10 +11,10 @@ rm_td_send:
 	if docker ps -a | egrep "td_send" > /dev/null; then docker rm -f td_send; fi
 
 td_recv:
-	docker run -name td_recv -h td_recv                        -i -t -p 8888:8888 -p 24224:24224 -e HOME=/root td-agent:recv /bin/bash
+	docker run -name td_recv -h td_recv                                       -i -t -e HOME=/root td-agent:recv /bin/bash
 
 td_send:
-	docker run -name td_send -h td_send --link td_recv:td_recv -i -t -p 9888:8888 -p 34224:24224 -e HOME=/root td-agent:send /bin/bash
+	docker run -name td_send -h td_send --link td_recv:td_recv -p 24224:24224 -i -t -e HOME=/root td-agent:send /bin/bash
 
 build: build_base build_recv build_send
 

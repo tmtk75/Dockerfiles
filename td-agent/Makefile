@@ -9,18 +9,20 @@ monitor_ltsv:
 
 run: td_recv
 
-clean: rm_td_recv rm_td_send rm_td_es
+clean: rm_recv rm_send
 
 distclean: clean rmi_recv rmi_send
 
-rm_td_recv:
+rm: rm_recv rm_send rm_es
+
+rm_recv:
 	if docker ps -a | egrep "td-agent:recv" > /dev/null; then docker rm -f td_recv; fi
 
-rm_td_send:
+rm_send:
 	if docker ps -a | egrep "td-agent:send" > /dev/null; then docker rm -f td_send; fi
 
-rm_td_es:
-	if docker ps -a | egrep "td-agent:es" > /dev/null; then docker rm -f td_recv; fi
+#rm_es:
+#	if docker ps -a | egrep "td-agent:es" > /dev/null; then docker rm -f td_recv; fi
 
 td_recv:
 	docker run -name td_recv -h td_recv                        -p 24220:24220 -i -t -e HOME=/root td-agent:recv /bin/bash
@@ -45,13 +47,13 @@ build_send:
 build_es:
 	docker build -t td-agent:es es
 
-rmi_recv: rm_td_recv
+rmi_recv: rm_recv
 	if docker images | egrep "td-agent\s+recv" > /dev/null; then docker rmi td-agent:recv; fi
 
-rmi_send: rm_td_send
+rmi_send: rm_send
 	if docker images | egrep "td-agent\s+send" > /dev/null; then docker rmi td-agent:send; fi
 
-rmi_es: rm_td_recv
+rmi_es: rm_recv
 	if docker images | egrep "td-agent\s+es" > /dev/null; then docker rmi td-agent:es; fi
 
 rmi: rmi_recv rmi_send

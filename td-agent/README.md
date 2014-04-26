@@ -24,3 +24,8 @@ Send a message.
 ## Two containers
 For now, exit the container and clean up the container you ran before.
 
+```
+$ make clean
+```
+
+

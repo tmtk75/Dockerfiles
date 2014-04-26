@@ -1,3 +1,6 @@
+usage:
+	echo see README
+
 monitor_json:
 	curl http://localhost:24220/api/plugins.json | jq .
 
@@ -52,6 +55,8 @@ rmi_es: rm_td_recv
 	if docker images | egrep "td-agent\s+es" > /dev/null; then docker rmi td-agent:es; fi
 
 rmi: rmi_recv rmi_send
+
+rmi-all: rmi rmi_es
 
 natpf:
 	VBoxManage controlvm "boot2docker-vm" natpf1 ",tcp,127.0.0.1,24224,,24224"

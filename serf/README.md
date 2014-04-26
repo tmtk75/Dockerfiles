@@ -1,70 +1,63 @@
 README
 
-Set up 
-======
-If you don't have vagrant using MacOSX, you can install it with puppet.
+# Getting Started
+Please run below comman once to build an image for serf.
+```
+make build
+```
 
-    $ bundle install --binstubs --path vendor
-    $ sudo ./bin/puppet apply manifests/init.pp
-    $ VBoxManage -v; vagrant -v
-    4.3.2r90405
-    Vagrant 1.3.5
+- Open three terminals
+- Run new container in each terminal with below commands
 
-After the installation, launch a VM and log in.
+```
+bash-4.1# serf -discover c0               -event-handler query=cat
+bash-4.1# serf -discover c0 -tag role=web -event-handler query:cat=cat
+bash-4.1# serf -discover c0 -tag role=db  -event-handler query:echo=echo
+```
 
-    $ vagrant up --provision
-    $ vagrant ssh
-
-
-Serf cluster
-============
-Let's say I work on CentOS-6.4.
-
-serf on host OS
-
-    $ curl -LO https://dl.bintray.com/mitchellh/serf/0.3.0_linux_386.zip
-    $ unzip 0.3.0_linux_386.zip
-    $ ./serf
-
-Build a docker image
-
-    $ sudo docker build -t centos/serf .
-
-Run serf agent on host OS
-
-    $ ./serf agent
-    ==> Starting Serf agent...
-    ==> Starting Serf agent RPC...
-    ==> Serf agent running!
-        Node name: 'kii-tools'
-        Bind addr: '0.0.0.0:7946'
-         RPC addr: '127.0.0.1:7373'
-        Encrypted: false
-         Snapshot: false
-          Profile: lan
-
-    ==> Log data will now stream in as it occurs:
-
-        2013/12/09 10:25:45 [INFO] Serf agent starting
-        2013/12/09 10:25:45 [INFO] serf: EventMemberJoin: kii-tools 10.5.224.32
-        2013/12/09 10:25:46 [INFO] agent: Received event: member-join
+- For `query:cat`, this event handler runs `cat` for `query` event.
+- For `query:cat=cat`, this event handler runs `cat` command in case event is `query` and the name is `cat`.
+- For `query:echo=echo`, this event handler runs `echo` command in case event is `query` and the name is `echo`.
 
 
-Run serf agent to bind on docker containers
+In the first terminal,
+```
+bash-4.1# serf members
+    2014/04/26 04:43:35 [INFO] agent.ipc: Accepted client: 127.0.0.1:48854
+5da781e98ce0  172.17.0.4:7946  alive  
+482277166dd4  172.17.0.6:7946  alive  role=db
+16f83f559b87  172.17.0.3:7946  alive  role=web
+```
 
-    $ sudo docker run -t -d centos/serf serf agent -join 10.5.224.32:7946
-    8a7d032eb5bf9f42b93d914ff0a8aa930f4799e4b9a90a22d9d5807896e91fba
+Try some query commands.
+```
+bash-4.1# serf query test hello
+    2014/04/26 04:53:29 [INFO] agent.ipc: Accepted client: 127.0.0.1:48932
+    2014/04/26 04:53:29 [INFO] agent: Received event: query: test
+Query 'test' dispatched
+Ack from '5da781e98ce0'
+Response from '5da781e98ce0': hello
+Ack from '482277166dd4'
+Ack from '16f83f559b87'
+Total Acks: 3
+Total Responses: 1
+```
+If event name is `test`, one node responds.
 
+```
+bash-4.1# serf query cat hello
+    2014/04/26 04:53:41 [INFO] agent.ipc: Accepted client: 127.0.0.1:48934
+    2014/04/26 04:53:41 [INFO] agent: Received event: query: cat
+Query 'cat' dispatched
+Ack from '5da781e98ce0'
+Response from '5da781e98ce0': hello
+Ack from '482277166dd4'
+Ack from '16f83f559b87'
+Response from '16f83f559b87': hello
+Total Acks: 3
+Total Responses: 2
+```
+If event name is `cat`, two nodes respond.
 
-If you use vagrant, launch it up with `--provision` option.
+You may already understand?
 
-    $ vagrant up --provision
-    $ vagrant ssh
-    Welcome to your Vagrant-built virtual machine.
-    [vagrant@localhost ~]$ ifconfig
-    eth0      Link encap:Ethernet  HWaddr 08:00:27:C9:39:9E  
-              inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
-              inet6 addr: fe80::a00:27ff:fec9:399e/64 Scope:Link
-              ...
-
-    $ cd /vagrant

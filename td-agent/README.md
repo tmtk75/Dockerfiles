@@ -1,7 +1,7 @@
 README
 
 # Getting Started
-
+## Localhost
 Launch a process.
 ```
 $ make build
@@ -19,6 +19,8 @@ Send a message.
 
 [root@476d5e5542d1 /]# echo '{"a":1,"b":2}' | fluent-cat debug.test
 [root@476d5e5542d1 /]# 2014-04-26 08:35:28 +0000 debug.test: {"a":1,"b":2}
+```
 
-
+## Two containers
+For now, exit the container and clean up the container you ran before.
 

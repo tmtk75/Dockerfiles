@@ -19,7 +19,7 @@ td_send:
 td_es:
 	docker run -name td_recv -h td_recv                                       -i -t -e HOME=/root td-agent:es /bin/bash
 
-build: build_base build_recv build_send
+build: build_base build_recv build_send build_es
 
 build_base:
 	docker build -t td-agent .

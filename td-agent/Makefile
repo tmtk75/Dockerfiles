@@ -33,11 +33,14 @@ build_send:
 build_es:
 	docker build -t td-agent:es es
 
-rmi_recv:
+rmi_recv: rm_td_recv
 	if docker images | egrep "td-agent\s+recv" > /dev/null; then docker rmi td-agent:recv; fi
 
-rmi_send:
+rmi_send: rm_td_send
 	if docker images | egrep "td-agent\s+send" > /dev/null; then docker rmi td-agent:send; fi
+
+rmi_es: rm_td_recv
+	if docker images | egrep "td-agent\s+es" > /dev/null; then docker rmi td-agent:es; fi
 
 rmi: rmi_recv rmi_send
 

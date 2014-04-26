@@ -1,23 +1,32 @@
+monitor_json:
+	curl http://localhost:24220/api/plugins.json | jq .
+
+monitor_ltsv:
+	curl http://localhost:24220/api/plugins
+
 run: td_recv
 
-clean: rm_td_recv rm_td_send
+clean: rm_td_recv rm_td_send rm_td_es
 
 distclean: clean rmi_recv rmi_send
 
 rm_td_recv:
-	if docker ps -a | egrep "td_recv" > /dev/null; then docker rm -f td_recv; fi
+	if docker ps -a | egrep "td-agent:recv" > /dev/null; then docker rm -f td_recv; fi
 
 rm_td_send:
-	if docker ps -a | egrep "td_send" > /dev/null; then docker rm -f td_send; fi
+	if docker ps -a | egrep "td-agent:send" > /dev/null; then docker rm -f td_send; fi
+
+rm_td_es:
+	if docker ps -a | egrep "td-agent:es" > /dev/null; then docker rm -f td_recv; fi
 
 td_recv:
-	docker run -name td_recv -h td_recv                                       -i -t -e HOME=/root td-agent:recv /bin/bash
+	docker run -name td_recv -h td_recv                        -p 24220:24220 -i -t -e HOME=/root td-agent:recv /bin/bash
 
 td_send:
 	docker run -name td_send -h td_send --link td_recv:td_recv -p 24224:24224 -i -t -e HOME=/root td-agent:send /bin/bash
 
 td_es:
-	docker run -name td_recv -h td_recv                                       -i -t -e HOME=/root td-agent:es /bin/bash
+	docker run -name td_recv -h td_recv                        -p 24220:24220 -i -t -e HOME=/root td-agent:es /bin/bash
 
 build: build_base build_recv build_send build_es
 

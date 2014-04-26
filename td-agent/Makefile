@@ -16,6 +16,9 @@ td_recv:
 td_send:
 	docker run -name td_send -h td_send --link td_recv:td_recv -p 24224:24224 -i -t -e HOME=/root td-agent:send /bin/bash
 
+td_es:
+	docker run -name td_recv -h td_recv                                       -i -t -e HOME=/root td-agent:es /bin/bash
+
 build: build_base build_recv build_send
 
 build_base:
@@ -26,6 +29,9 @@ build_recv:
 
 build_send:
 	docker build -t td-agent:send send
+
+build_es:
+	docker build -t td-agent:es es
 
 rmi_recv:
 	if docker images | egrep "td-agent\s+recv" > /dev/null; then docker rmi td-agent:recv; fi

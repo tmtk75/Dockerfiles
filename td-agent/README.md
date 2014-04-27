@@ -1,4 +1,17 @@
 # README
+## Overview
+```
+          fluent-cat
+              |
+              |
+              v
+          td_send:24224 --------> td_recv:24224
+                                         :24220
+                                      |
+                                      |
+                                      v
+                                  td_es:9200
+```
 
 # Getting Started
 To build requied images, which will build two images taking a few minutes.

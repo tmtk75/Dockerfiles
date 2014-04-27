@@ -7,13 +7,16 @@ monitor_json:
 monitor_ltsv:
 	curl http://localhost:24220/api/plugins
 
+curl:
+	cd ../elasticsearch; make curl
+
 run: td_recv
 
-clean: rm_recv rm_send
+clean: rm
 
 distclean: clean rmi-all
 
-rm: rm_recv rm_send
+rm: rm_recv rm_send rm_es
 
 rm_recv:
 	if docker ps -a | egrep "td-agent:recv" > /dev/null; then docker rm -f td_recv; fi
@@ -21,11 +24,17 @@ rm_recv:
 rm_send:
 	if docker ps -a | egrep "td-agent:send" > /dev/null; then docker rm -f td_send; fi
 
+rm_es:
+	if docker ps -a | egrep "td-agent:es" > /dev/null; then docker rm -f td_es; fi
+
 td_recv:
 	docker run -name td_recv -h td_recv                        -p 24220:24220 -i -t -e HOME=/root td-agent:recv /bin/bash
 
 td_send:
 	docker run -name td_send -h td_send --link td_recv:td_recv -p 24224:24224 -i -t -e HOME=/root td-agent:send /bin/bash
+
+td_es:
+	docker run -name td_es -h td_es -p 9200:9200 -p 9300:9300 elasticsearch:1.1.1 &
 
 build: build_base build_recv build_send
 

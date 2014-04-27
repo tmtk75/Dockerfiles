@@ -1,7 +1,7 @@
-README
+# README
 
 # Getting Started
-To build images.
+To build requied images, which will build two images taking a few minutes.
 ```
 $ make build
 ```
@@ -26,7 +26,7 @@ Send a message.
 ```
 
 ## Two containers
-For now, exit the container and clean up the container you ran before.
+For now, exit the container and clean up the container you ran before next.
 ```
 $ make clean
 ```
@@ -44,26 +44,27 @@ $ make td_send
 [root@d_send /]# ./td-agent
 ```
 
-NOTE: Please confirm that ipaddr of td_recv is 172.17.0.2 with ifconfig.
-
 Send a message.
 ```
 [root@d_send /]# echo '{"a":1}' | fluent-cat -h 127.0.0.1 debug.test
 ```
 
-You can see the log soon in the tailed log.
+You can see the log soon in the tailed log of td_recv terminal.
 ```
 2014-04-26 12:27:04 +0000 debug.test: {"a":1}
 ```
 
+NOTE: If it doesn't work properly, please confirm that ipaddr of td_recv is 172.17.0.2 with ifconfig.
+
 ## Elasticsearch
+Exit both of previouse two containers and clean up the containers.
 ```
-$ make clean build
+$ make clean
 ```
 
 Open three terminals and run each ones.
 ```
-$ make td_es
+$ make td_recv
 [root@td_recv /]# ./td-agent
 [root@td_recv /]# 
 

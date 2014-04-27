@@ -1,4 +1,24 @@
 # README
+## Overview
+There are three containers which runs td-agent and elasticsearch, which are td_send, td_recv and td_es.
+
+```
+                |
+                |
+   td_send      |      td-agent:24224    <----  fluent-cat  (send a JSON)
+                |           |
+ ---------------+-----------+-----------------------------
+                |           |
+                |           v
+   td_recv      |      td-agent:24224
+                |              :24220    ------------------>  metrics with curl
+                |           |
+ ---------------+-----------+-------------
+                |           |
+                |           v
+   td_es        |    elasticsearch:9200
+                |
+```
 
 # Getting Started
 To build requied images, which will build two images taking a few minutes.

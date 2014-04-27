@@ -1,16 +1,17 @@
 # README
 ## Overview
 ```
-          fluent-cat
-              |
-              |
-              v
-          td_send:24224 --------> td_recv:24224
-                                         :24220
-                                      |
-                                      |
-                                      v
-                                  td_es:9200
+        td_send        |        td_recv         |          td_es
+-----------------------+------------------------+----------------------------
+                       |                        |
+       fluent-cat      |                        |
+            |          |                        |
+            |          |                        |
+            v          |                        |
+    td-agent:24224 ----+---> td-agent:24224 ----+---> elasticsearch:9200
+                       |             :24220     |
+                       |                        |
+                           
 ```
 
 # Getting Started

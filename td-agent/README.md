@@ -77,11 +77,12 @@ docker run -d -p 9200:9200 -p 9300:9300 elasticsearch:1.1.1
 bbb924c0cd05744500c091889ac6ec96ffebccc2e0c600db98a0df0a38297c2a
 ```
 
-`make td_es` need a time to launch in order to initialize elasticsearch. `docker logs td_es` is helpful to see if it's finished.
+`make td_es` need a time to launch in order to initialize elasticsearch.
+`docker logs td_es` is helpful to see if it's finished, which the logs says `started`.
 
 NOTE: This expects td_recv is 172.17.0.2, td_send is 172.17.0.3 and td_es is 172.17.0.4. Please ensure the order to run.
 
-In the terminal where elasticsearch is running, execute next.
+In the terminal where to run `make td_es`, execute `make curl` which queries to the elasticsearch.
 ```
 $ make curl
 {
@@ -90,9 +91,9 @@ $ make curl
 }
 ```
 
-You see 404 because missing data.
+You see 404 because of no data.
 
-In the td_send, run next.
+In the td_send, run next to give data.
 ```
 $ echo '{"name":"game"}' | fluent-cat es.test
 $ echo '{"name":"animal"}' | fluent-cat es.test

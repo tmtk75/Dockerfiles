@@ -16,7 +16,7 @@ clean: rm
 
 distclean: clean rmi-all
 
-rm: rm_recv rm_send rm_es
+rm: rm_es rm_send rm_recv
 
 rm_recv:
 	if docker ps -a | egrep "td-agent:recv" > /dev/null; then docker rm -f td_recv; fi
@@ -25,7 +25,7 @@ rm_send:
 	if docker ps -a | egrep "td-agent:send" > /dev/null; then docker rm -f td_send; fi
 
 rm_es:
-	if docker ps -a | egrep "td-agent:es" > /dev/null; then docker rm -f td_es; fi
+	if docker ps -a | egrep "\s+td_es" > /dev/null; then docker rm -f td_es; fi
 
 td_recv:
 	docker run -name td_recv -h td_recv                        -p 24220:24220 -i -t -e HOME=/root td-agent:recv /bin/bash

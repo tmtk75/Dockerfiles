@@ -1,7 +1,7 @@
-README
+# README
 
 # Getting Started
-To build images.
+To build requied images, which will build two images taking a few minutes.
 ```
 $ make build
 ```
@@ -26,7 +26,7 @@ Send a message.
 ```
 
 ## Two containers
-For now, exit the container and clean up the container you ran before.
+For now, exit the container and clean up the container you ran before next.
 ```
 $ make clean
 ```
@@ -44,26 +44,27 @@ $ make td_send
 [root@d_send /]# ./td-agent
 ```
 
-NOTE: Please confirm that ipaddr of td_recv is 172.17.0.2 with ifconfig.
-
 Send a message.
 ```
 [root@d_send /]# echo '{"a":1}' | fluent-cat -h 127.0.0.1 debug.test
 ```
 
-You can see the log soon in the tailed log.
+You can see the log soon in the tailed log of td_recv terminal.
 ```
 2014-04-26 12:27:04 +0000 debug.test: {"a":1}
 ```
 
+NOTE: If it doesn't work properly, please confirm that ipaddr of td_recv is 172.17.0.2 with ifconfig.
+
 ## Elasticsearch
+Exit both of previouse two containers and clean up the containers.
 ```
-$ make clean build
+$ make clean
 ```
 
 Open three terminals and run each ones.
 ```
-$ make td_es
+$ make td_recv
 [root@td_recv /]# ./td-agent
 [root@td_recv /]# 
 
@@ -71,10 +72,12 @@ $ make td_send
 [root@td_send /]# ./td-agent
 [root@td_send /]# 
 
-$ cd ../elasticsearch
+$ make td_es
 docker run -d -p 9200:9200 -p 9300:9300 elasticsearch:1.1.1
-196f3e6a6a3d1d622151cb11246870592c5d0ec3c5d77ad46d871a2862ee132d
+bbb924c0cd05744500c091889ac6ec96ffebccc2e0c600db98a0df0a38297c2a
 ```
+
+`make td_es` need a time to launch in order to initialize elasticsearch. `docker logs td_es` is helpful to see if it's finished.
 
 NOTE: This expects td_recv is 172.17.0.2, td_send is 172.17.0.3 and elasticsearch is 172.17.0.4. Please ensure the order to run.
 
@@ -91,11 +94,11 @@ You see 404 because missing data.
 
 In the td_send, run next.
 ```
-$ echo '{"name":"game"}' | fluend-cat es.test
-$ echo '{"name":"animal"}' | fluend-cat es.test
+$ echo '{"name":"game"}' | fluent-cat es.test
+$ echo '{"name":"animal"}' | fluent-cat es.test
 ```
 
-Retry `make curl`.
+After a few seconds, retry `make curl`.
 ```
 {
   "hits": {
@@ -124,3 +127,4 @@ Retry `make curl`.
 ```
 
 You got this :)
+

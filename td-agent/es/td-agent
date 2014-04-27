@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-/etc/init.d/td-agent restart
-tail -f /var/log/td-agent/td-agent.log

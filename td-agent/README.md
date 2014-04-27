@@ -79,7 +79,7 @@ bbb924c0cd05744500c091889ac6ec96ffebccc2e0c600db98a0df0a38297c2a
 
 `make td_es` need a time to launch in order to initialize elasticsearch. `docker logs td_es` is helpful to see if it's finished.
 
-NOTE: This expects td_recv is 172.17.0.2, td_send is 172.17.0.3 and elasticsearch is 172.17.0.4. Please ensure the order to run.
+NOTE: This expects td_recv is 172.17.0.2, td_send is 172.17.0.3 and td_es is 172.17.0.4. Please ensure the order to run.
 
 In the terminal where elasticsearch is running, execute next.
 ```

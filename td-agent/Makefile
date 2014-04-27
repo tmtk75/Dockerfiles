@@ -63,8 +63,10 @@ rmi-all: rmi rmi_base
 natpf:
 	VBoxManage controlvm "boot2docker-vm" natpf1 ",tcp,127.0.0.1,24224,,24224"
 	VBoxManage controlvm "boot2docker-vm" natpf1 ",udp,127.0.0.1,24224,,24224"
+	VBoxManage controlvm "boot2docker-vm" natpf1 ",tcp,127.0.0.1,24220,,24220"
 
 natpf_clean:
 	VBoxManage controlvm "boot2docker-vm" natpf1 delete tcp_24224_24224
 	VBoxManage controlvm "boot2docker-vm" natpf1 delete udp_24224_24224
+	VBoxManage controlvm "boot2docker-vm" natpf1 delete tcp_24220_24220
 

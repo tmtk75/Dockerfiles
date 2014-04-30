@@ -3,6 +3,9 @@ version=1.0.0
 build:
 	docker build -t norikra:$(version) .
 
+build-client:
+	docker build -t norikra-client:0.1.5 client
+
 run:
 	docker run -d -p 26571:26571 -p 26578:26578 norikra:$(version)
 

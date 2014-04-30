@@ -1,6 +1,9 @@
 build:
 	docker build -t norikra:0.1.7 .
 
+build-client:
+	docker build -t norikra-client:0.1.5 client
+
 run:
 	docker run -d -p 26571:26571 -p 26578:26578 norikra:0.1.7
 

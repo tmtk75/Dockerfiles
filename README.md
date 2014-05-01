@@ -2,6 +2,11 @@ README
 
 This provides some Dockerfiles.
 
+Currently you can do a trial run for:
+
+- elasticsearch thru td-agent
+- norikra thru td-agent
+
 
 # Getting Started
 ## MacOSX

@@ -4,6 +4,9 @@ build:
 run:
 	docker run -d -p 26571:26571 -p 26578:26578 norikra:0.1.7
 
+stop:
+	if docker ps | grep norikra:0.1.7 >/dev/null; then docker ps | grep norikra:0.1.7 | awk '{print $$1}' | xargs docker stop; fi
+
 # NAT port forwardings
 natpf:
 	VBoxManage controlvm "boot2docker-vm" natpf1 ",tcp,127.0.0.1,26571,,26571"

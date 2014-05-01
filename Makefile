@@ -1,5 +1,9 @@
-ps:
-	docker ps
+build-norikra:
+	cd norikra; make build
+
+build-elasticsearch:
+	cd td-agent; make build
+	cd elasticsearch; make build
 
 clean: rm-all
 

@@ -6,6 +6,8 @@ Currently you can do a trial run for:
 
 - elasticsearch thru td-agent
 - norikra thru td-agent
+- serf
+- consul
 
 
 # Getting Started

@@ -15,7 +15,7 @@ aaa8671f7c01a3189007ac39fe58dd0181d0bcfd44dd85123385263404ea7591
 
 Wait for about 30 seconds.
 ```
-$ open localhost:26578
+$ open http://localhost:26578
 ```
 
 You can see a web console.

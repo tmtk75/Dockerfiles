@@ -10,9 +10,9 @@ make build
 - Run new container in each terminal with below commands
 
 ```
-bash-4.1# serf -discover c0               -event-handler query=cat
-bash-4.1# serf -discover c0 -tag role=web -event-handler query:cat=cat
-bash-4.1# serf -discover c0 -tag role=db  -event-handler query:echo=echo
+bash-4.1# serf agent -discover c0               -event-handler query=cat
+bash-4.1# serf agent -discover c0 -tag role=web -event-handler query:cat=cat
+bash-4.1# serf agent -discover c0 -tag role=db  -event-handler query:echo=echo
 ```
 
 - For `query:cat`, this event handler runs `cat` for `query` event.

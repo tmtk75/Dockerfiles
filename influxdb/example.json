@@ -1,0 +1,10 @@
+[
+  {
+    "name": "test",
+    "columns": ["time", "v", "desc"],
+    "points": [
+      [1400425947368, 1, "this line is first"],
+      [1400425947368, 2, "and this is second"]
+    ]
+  }
+]

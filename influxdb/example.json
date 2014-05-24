@@ -1,6 +1,6 @@
 [
   {
-    "name": "test",
+    "name": "foobar",
     "columns": ["time", "v", "desc"],
     "points": [
       [1400425947368, 1, "this line is first"],

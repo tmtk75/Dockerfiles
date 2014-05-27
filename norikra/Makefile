@@ -1,11 +1,13 @@
+version=1.0.0
+
 build:
-	docker build -t norikra:0.1.7 .
+	docker build -t norikra:$(version) .
 
 run:
-	docker run -d -p 26571:26571 -p 26578:26578 norikra:0.1.7
+	docker run -d -p 26571:26571 -p 26578:26578 norikra:$(version)
 
 stop:
-	if docker ps | grep norikra:0.1.7 >/dev/null; then docker ps | grep norikra:0.1.7 | awk '{print $$1}' | xargs docker stop; fi
+	if docker ps | grep norikra:$(version) >/dev/null; then docker ps | grep norikra:$(version) | awk '{print $$1}' | xargs docker stop; fi
 
 # NAT port forwardings
 natpf:

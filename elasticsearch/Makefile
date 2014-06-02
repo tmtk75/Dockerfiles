@@ -10,6 +10,9 @@ stop:
 build:
 	docker build -t elasticsearch:1.2.0 .
 
+build-with-rpm:
+	docker build -t elasticsearch.rpm ./with-rpm
+
 natpf:
 	VBoxManage controlvm "boot2docker-vm" natpf1 ",tcp,127.0.0.1,9200,,9200"
 

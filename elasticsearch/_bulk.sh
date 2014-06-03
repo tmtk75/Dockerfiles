@@ -1,0 +1,1 @@
+curl -v -XPOST localhost:9200/_bulk --data-binary @_bulk.json.txt

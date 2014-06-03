@@ -19,3 +19,6 @@ natpf:
 natpf_clean:
 	VBoxManage controlvm "boot2docker-vm" natpf1 delete tcp_9200_9200
 
+bash:
+	docker run -i -t elasticsearch:1.2.0 /bin/bash
+

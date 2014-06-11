@@ -9,7 +9,7 @@ $ make build
 Successfully built 5734cc4fa5d0
 
 $ make run
-docker run -d -p 26571:26571 -p 26578:26578 norikra:0.1.7
+docker run -d -p 26571:26571 -p 26578:26578 norikra:1.0.0
 aaa8671f7c01a3189007ac39fe58dd0181d0bcfd44dd85123385263404ea7591
 ```
 

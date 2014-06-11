@@ -2,10 +2,19 @@ build:
 	docker build -t focuslight .
 
 run:
-	docker run -d -p 5125:5125 focuslight
+	docker run -d \
+	  -p 5125:5125 \
+	  -v `pwd`/data:/focuslight/data \
+	  focuslight:0.1.4
 
 bash:
-	docker run -i -t -p 5125:5125 focuslight /bin/bash
+	docker run -i -t \
+	  -p 5125:5125 \
+	  -v `pwd`/data:/focuslight/data \
+	  focuslight:0.1.4 /bin/bash
+
+stop:
+	docker stop `docker ps|egrep focuslight|awk '{print $$1}'`
 
 natpf:
 	VBoxManage controlvm "boot2docker-vm" natpf1 ",tcp,127.0.0.1,5125,,5125"

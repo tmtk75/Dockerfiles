@@ -29,3 +29,5 @@ WORKDIR focuslight
 RUN focuslight init
 CMD focuslight start
 
+EXPOSE 5125
+

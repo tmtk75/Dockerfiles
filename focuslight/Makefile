@@ -1,7 +1,9 @@
 build:
 	docker build -t focuslight .
 
-run: bash
+run:
+	docker run -d -p 5125:5125 focuslight
+
 bash:
 	docker run -i -t -p 5125:5125 focuslight /bin/bash
 

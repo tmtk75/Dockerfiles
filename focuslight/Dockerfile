@@ -6,3 +6,8 @@ RUN yum install -y sqlite-devel
 RUN yum install -y mysql-devel
 RUN gem install focuslight --no-ri --no-rdoc
 
+RUN focuslight new
+WORKDIR focuslight
+RUN focuslight init
+CMD focuslight start
+

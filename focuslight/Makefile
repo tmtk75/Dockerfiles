@@ -6,10 +6,6 @@ container_workdir=/focuslight
 data_container_name=focuslight_data
 image_name=focuslight:0.1.4
 
-build:
-	docker build -t $(image_name) .
-	docker tag $(image_name) tmtk75/$(image_name)
-
 init:
 	docker run -v $(host_workdir):$(container_workdir) -w /           $(image_name) new
 	docker run -v $(host_workdir):$(container_workdir) -w $(container_workdir) $(image_name) init
@@ -22,6 +18,21 @@ run:
 
 sample:
 	curl -d "number=123" localhost:5125/api/service/section/graph
+
+#
+# Management
+#
+build:
+	docker build -t $(image_name) .
+	docker tag $(image_name) tmtk75/$(image_name)
+
+push:
+	docker tag $(image_name) tmtk75/$(image_name)
+	docker push tmtk75/$(image_name)
+
+pull:
+	docker pull tmtk75/$(image_name)
+	docker tag $(image_name) tmtk75/$(image_name)
 
 bash:
 	docker run -i -t -v /focuslight --volumes-from $(data_container_name) $(image_name) /bin/bash

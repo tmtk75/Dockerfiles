@@ -1,4 +1,4 @@
-FROM ruby:2.1.1
+FROM tmtk75/ruby:2.1.1
 MAINTAINER tmtk75
 
 ##
@@ -22,12 +22,14 @@ RUN yum erase rrdtool -y
 RUN rpm -Uvh perl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm rrdtool-1.4.7-1.el6.rfx.x86_64.rpm rrdtool-devel-1.4.7-1.el6.rfx.x86_64.rpm
 
 ##
-## initialize
+## To run following section, data container is needed having "/focuslight".
 ##
-RUN focuslight new
-WORKDIR focuslight
-RUN focuslight init
-CMD focuslight start
-
+VOLUME ["/focuslight"]
 EXPOSE 5125
+WORKDIR focuslight
+
+#RUN focuslight new
+#RUN focuslight init
+#ENTRYPOINT ["focuslight"]
+#CMD ["start"]
 

@@ -13,7 +13,7 @@ init:
 	docker run -v `pwd`/focuslight_data:/focuslight -w /focuslight focuslight:0.1.4 focuslight init
 
 run:
-	docker run -d -p 5125:5125 -v /focuslight --volumes-from focuslight_data focuslight:0.1.4 focuslight start
+	docker run -d -p 5125:5125 --volumes-from focuslight_data focuslight:0.1.4 focuslight start
 
 sample:
 	curl -d "number=123" localhost:5125/api/service/section/graph

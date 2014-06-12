@@ -10,7 +10,7 @@ init:
 	docker run -v $(host_workdir):$(container_workdir) -w /           $(image_name) new
 	docker run -v $(host_workdir):$(container_workdir) -w $(container_workdir) $(image_name) init
 
-focuslight_data:
+data_container:
 	docker run -v $(host_workdir):$(container_workdir) --name $(data_container_name) centos /bin/bash
 
 run:

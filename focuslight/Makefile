@@ -1,26 +1,30 @@
 #
-# data_container: focuslight_data
-# volumes: ["/focuslight"]
+# https://github.com/focuslight/focuslight
 #
-build:
-	docker build -t focuslight:0.1.4 .
+host_workdir=`pwd`/focuslight_data
+container_workdir=/focuslight
+data_container_name=focuslight_data
+image_name=focuslight:0.1.4
 
-focuslight_data:
-	docker run -v `pwd`/focuslight_data:/focuslight --name focuslight_data centos /bin/bash
+build:
+	docker build -t $(image_name) .
+	docker tag $(image_name) tmtk75/$(image_name)
 
 init:
-	docker run -v `pwd`/focuslight_data:/focuslight -w / focuslight:0.1.4 focuslight new
-	docker run -v `pwd`/focuslight_data:/focuslight -w /focuslight focuslight:0.1.4 focuslight init
+	docker run -v $(host_workdir):$(container_workdir) -w /           $(image_name) new
+	docker run -v $(host_workdir):$(container_workdir) -w $(container_workdir) $(image_name) init
+
+focuslight_data:
+	docker run -v $(host_workdir):$(container_workdir) --name $(data_container_name) centos /bin/bash
 
 run:
-	docker run -d -p 5125:5125 --volumes-from focuslight_data focuslight:0.1.4 focuslight start
+	docker run -d -p 5125:5125 --volumes-from $(data_container_name) $(image_name)
 
 sample:
 	curl -d "number=123" localhost:5125/api/service/section/graph
 
-
 bash:
-	docker run -i -t -v /focuslight --volumes-from focuslight_data focuslight:0.1.4 /bin/bash
+	docker run -i -t -v /focuslight --volumes-from $(data_container_name) $(image_name) /bin/bash
 
 stop:
 	docker stop `docker ps|egrep focuslight|awk '{print $$1}'`

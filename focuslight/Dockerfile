@@ -26,10 +26,7 @@ RUN rpm -Uvh perl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm rrdtool-1.4.7-1.el6.rfx.x86
 ##
 VOLUME ["/focuslight"]
 EXPOSE 5125
-WORKDIR focuslight
-
-#RUN focuslight new
-#RUN focuslight init
-#ENTRYPOINT ["focuslight"]
-#CMD ["start"]
+WORKDIR /focuslight
+ENTRYPOINT ["focuslight"]
+CMD ["start"]
 

@@ -3,9 +3,6 @@ version=1.0.0
 build:
 	docker build -t norikra:$(version) .
 
-build-client:
-	docker build -t norikra-client:0.1.5 client
-
 run:
 	docker run -d -p 26571:26571 -p 26578:26578 norikra:$(version)
 
@@ -20,4 +17,10 @@ natpf:
 natpf_clean:
 	VBoxManage controlvm "boot2docker-vm" natpf1 delete tcp_26571_26571
 	VBoxManage controlvm "boot2docker-vm" natpf1 delete tcp_26578_26578
+
+build-client:
+	docker build -t norikra-client:1.0.0 client
+
+run-client:
+	docker run -i -t norikra-client:1.0.0 /bin/bash
 

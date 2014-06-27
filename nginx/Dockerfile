@@ -3,15 +3,13 @@
 #
 FROM centos
 RUN yum update -y
-
-RUN curl -OL http://nginx.org/download/nginx-1.7.2.tar.gz
-RUN yum install -y tar gcc pcre pcre-devel zlib-devel
-RUN tar xfz nginx-1.7.2.tar.gz
-
-RUN yum install -y git
-RUN git clone https://github.com/kvspb/nginx-auth-ldap.git  
+RUN yum install -y tar gcc pcre pcre-devel zlib-devel git
 RUN yum install -y --enablerepo=centosplus openssl-devel
 RUN yum install -y openldap-devel
+
+RUN curl -OL http://nginx.org/download/nginx-1.7.2.tar.gz
+RUN tar xfz nginx-1.7.2.tar.gz
+RUN git clone https://github.com/kvspb/nginx-auth-ldap.git  
 
 WORKDIR nginx-1.7.2
 RUN ./configure --with-http_ssl_module \

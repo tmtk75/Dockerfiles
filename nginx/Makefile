@@ -1,6 +1,12 @@
 #
 # OSX:8080 --> boot2docker:80 --> container:80
 #
+target:
+	echo "hi"
+
+build:
+	docker build -t tmtk75/nginx:1.7.2 .
+
 run:
 	docker run -p 80:80 nginx
 

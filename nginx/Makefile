@@ -10,7 +10,10 @@ build:
 	docker build -t $(IMAGE) .
 
 run:
-	docker run -p 80:80 $(IMAGE)
+	docker run \
+		-p 8080:80 \
+		-v `pwd`/nginx.conf:/usr/local/nginx/conf/nginx.conf \
+		$(IMAGE)
 
 bash:
 	docker run -i -t $(IMAGE) /bin/bash

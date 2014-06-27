@@ -13,6 +13,7 @@ run:
 	docker run \
 		-p 8080:80 \
 		-v `pwd`/nginx.conf:/usr/local/nginx/conf/nginx.conf \
+		-v `pwd`:/usr/local/nginx/html \
 		$(IMAGE)
 
 bash:

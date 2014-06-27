@@ -4,11 +4,19 @@
 target:
 	echo "hi"
 
+IMAGE=tmtk75/nginx:1.7.2 
+
 build:
-	docker build -t tmtk75/nginx:1.7.2 .
+	docker build -t $(IMAGE) .
 
 run:
-	docker run -p 80:80 nginx
+	docker run -p 80:80 $(IMAGE)
+
+bash:
+	docker run -i -t $(IMAGE) /bin/bash
+
+sample:
+	curl -v localhost:8080/index.html
 
 # NAT port forwardings
 natpf:

@@ -24,11 +24,9 @@ RUN rpm -Uvh perl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm rrdtool-1.4.7-1.el6.rfx.x86
 ##
 ## To run following section, data container is needed having "/focuslight".
 ##
-RUN focuslight new
 VOLUME ["/focuslight"]
 EXPOSE 5125
 WORKDIR /focuslight
-RUN focuslight init
 ENTRYPOINT ["focuslight"]
 CMD ["start"]
 
